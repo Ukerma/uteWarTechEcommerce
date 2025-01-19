@@ -1,0 +1,246 @@
+﻿@using OnlineShop.Models.ViewModels
+@model Order
+
+@{
+    var products = ViewData["Products"] as List<ProductCartViewModel>;
+}
+
+<!--Checkout page section-->
+<div class="checkout_section" id="accordion" style="margin-top:200px;">
+    <div class="container">
+        <div class="returning_coupon_area">
+            <div class="row justify-content-end">
+
+                <div class="col-lg-5 col-md-6">
+                    <div class="user-actions">
+                        @if (TempData["message"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert"> @TempData["message"]</div>
+                        }
+                        <h3 class="coupon-section">
+                            <i class="fa fa-comment-o" aria-hidden="true"></i>
+                            Have a Coupon ?
+                            <a class="Returning" href="#" data-toggle="collapse" data-target="#checkout_coupon2" aria-expanded="true">Click here to enter your code</a>
+                        </h3>
+
+                        <style>
+                            /* Sadece h3 için arka plan rengi */
+                            .coupon-section {
+                                background-color: #D4EBF8 !important; /* Açık mavi arka plan rengi */
+                                padding: 10px; /* İç boşluk */
+                                border-radius: 5px; /* Hafif yuvarlak kenarlar */
+                            }
+
+                                /* H3 içindeki metin ve bağlantı için ek stil */
+                                .coupon-section a {
+                                    color: #1F509A !important; /* Bağlantı rengi */
+                                    text-decoration: none; /* Alt çizgiyi kaldırır */
+                                }
+
+                                    .coupon-section a:hover {
+                                        color: #0A3981 !important; /* Hover durumunda bağlantı rengi */
+                                        text-decoration: underline; /* Alt çizgi ekler */
+                                    }
+                        </style>
+
+                        <div class="checkout_info coupon_info">
+                            <style>
+                                .custom-btn {
+                                    background-color: #1F509A !important; /* Butonun arka plan rengi */
+                                    color: white; /* Buton metin rengi */
+                                    border: none; /* Buton kenarlığını kaldırır */
+                                    padding: 10px 20px; /* Buton boyutunu ayarlar */
+                                    border-radius: 5px; /* Yuvarlak kenarlar */
+                                    text-decoration: none; /* Alt çizgiyi kaldırır */
+                                }
+
+                                    .custom-btn:hover {
+                                        background-color: #D4EBF8 !important; /* Hover durumu için farklı bir renk */
+                                        color: #0A3981; /* Hover durumu için metin rengi */
+                                    }
+                            </style>
+                            <form asp-action="ApplyCouponCode">
+                                <input placeholder="Coupon code" type="text" name="couponCode">
+                                <button class="btn custom-btn" type="submit">Apply coupon</button>
+                            </form>
+                            <br />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form asp-action="Checkout">
+                <input type="hidden" asp-for="CouponCode" />
+                <input type="hidden" asp-for="Shipping" />
+            <div class="checkout_form">
+            <div class="row d-flex justify-content-end">
+                <div class="col-lg-7 col-md-6">
+                    
+                        <h3>Billing Details</h3>
+                        <div class="checkout_form_input">
+                            <label for="country">country <span>*</span></label>
+                            <select class="select_option" asp-for="Country" id="country">
+                                <option value="1">Australia</option>
+                                <option value="2">Bahrain</option>
+                                <option value="3">Canada</option>
+                                <option value="4">France</option>
+                                <option value="5">Germany</option>
+                                <option value="6">Ghana</option>
+                                <option value="7">India</option>
+                                <option value="8">Israel</option>
+                                <option value="9">Italy</option>
+                                <option value="10">Japan</option>
+                                <option value="11">North Korea</option>
+                                <option value="12">Qatar</option>
+                                <option value="13">Russia</option>
+                                <option value="14">Saudi Arabia</option>
+                                <option value="15">South Korea</option>
+                                <option value="16">Taiwan</option>
+                                <option value="17">Turkey</option>
+                                <option value="18">Uganda</option>
+                                <option value="19">United Arab Emirates (UAE)</option>
+                                <option value="20">United States</option>
+
+                            </select>
+                        </div>
+                        <div class="checkout_form_input">
+                            <label>First Name <span>*</span></label>
+                            <input type="text" asp-for="FirstName">
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="checkout_form_input">
+                            <label>Last Name  <span>*</span></label>
+                            <input type="text" asp-for="LastName">
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="checkout_form_input">
+                            <label>Company Name</label>
+                            <input type="text" asp-for="CompanyName">
+                            <span asp-validation-for="CompanyName" class="text-danger"></span>
+                        </div>
+                        <div class="checkout_form_input">
+                            <label>Address  <span>*</span></label>
+                            <input type="text" asp-for="Address">
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="checkout_form_input">
+                            <label>Town / City <span>*</span></label>
+                            <input type="text" asp-for="City">
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        <div class="checkout_form_input">
+                            <label> Email   <span>*</span></label>
+                            <input type="text" asp-for="Email">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="checkout_form_input">
+                            <label> Phone <span>*</span></label>
+                            <input type="text" asp-for="Phone">
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <div class="checkout_form_input">
+                            <label> Comment </label>
+                            <input type="text" asp-for="Comment">
+                            <span asp-validation-for="Comment" class="text-danger"></span>
+                        </div>
+
+                    
+                </div>
+                <div class="col-lg-5 col-md-6">
+                        <div class="order_table_right custom-bg">
+                            <form action="#">
+                                <h3>Your order</h3>
+                                <div class="order_table table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th class="text-right">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in products)
+                                            {
+                                                <tr>
+                                                    <td> @item.Title </td>
+                                                    <td class="text-right"> $@item.RowSumPrice.GetValueOrDefault(0).ToString("N") </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td>Cart Subtotal</td>
+                                                <td class="text-right">$@products.Sum(x => x.RowSumPrice)?.ToString("N")</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Shipping</td>
+                                                <td class="text-right">$@Model.Shipping?.ToString("N")</td>
+                                            </tr>
+                                            @if (!string.IsNullOrEmpty(Model.CouponCode))
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        Discount - &nbsp; @Model.CouponCode &nbsp;&nbsp;
+                                                        <a href="/cart/Checkout">
+                                                            <i class="ion-android-close"></i>
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-right">$@Model.CouponDiscount?.ToString("N")</td>
+                                                </tr>
+                                            }
+                                            <tr class="order_total">
+                                                <th>Order Total</th>
+                                                @{
+                                                    var orderTotal = (products.Sum(x => x.RowSumPrice) + Model.Shipping);
+                                                    if (Model.CouponDiscount != null)
+                                                    {
+                                                        orderTotal = orderTotal - Model.CouponDiscount;
+                                                    }
+                                                }
+                                                <td class="text-right">$@orderTotal?.ToString("N")</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <div class="place_order_btn">
+                                    <input class="btn custom-btn btn-block" type="submit" value="Place Order" />
+                                </div>
+                            </form>
+                        </div>
+
+                        <style>
+                            /* Sadece arka plan rengini değiştiren stil */
+                            .custom-bg {
+                                background-color: #D4EBF8 !important; /* Açık mavi arka plan rengi */
+                                padding: 20px; /* İçerik boşluğu */
+                                border-radius: 8px; /* Hafif yuvarlatılmış kenarlar */
+                            }
+
+                            /* Buton rengi (öncekilerle uyumlu olacak şekilde) */
+                            .custom-btn {
+                                background-color: #0A3981 !important; /* Buton arka plan rengi */
+                                color: white; /* Buton metin rengi */
+                                border: none; /* Kenarlık kaldırılır */
+                                padding: 10px 20px; /* İç boşluk */
+                                border-radius: 5px; /* Yuvarlak kenarlar */
+                                cursor: pointer; /* Tıklanabilir işaretçi */
+                                font-size: 16px; /* Yazı boyutu */
+                                width: 100%; /* Tam genişlik */
+                            }
+
+                                .custom-btn:hover {
+                                    background-color: #1F509A !important; /* Hover sırasında açık mavi */
+                                    color: white !important; /* Hover metin rengi */
+                                }
+                        </style>
+
+
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<!--Checkout page section end-->

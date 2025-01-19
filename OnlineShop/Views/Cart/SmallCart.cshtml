@@ -1,0 +1,76 @@
+﻿@model List<OnlineShop.Models.ViewModels.ProductCartViewModel>
+
+@if (Model!=null && Model.Any())
+{
+    <div class="cart_gallery">
+        
+        @foreach (var item in Model)
+        {
+            <div class="cart_item">
+                <div class="cart_img">
+                    <a href="/Products/ProductDetails/@item.Id"><img src="/images/banners/@item.ImageName" alt="@item.Title"></a>
+                </div>
+                <div class="cart_info">
+                    <a href="/Products/ProductDetails/@item.Id">@item.Title</a>
+                    <p>@item.Count x <span> $@item.Price.GetValueOrDefault(0).ToString("N") </span></p>
+                </div>
+                <div class="cart_remove">
+                    <a onclick="updateCart(@item.Id,0)"><i class="icon-close icons"></i></a>
+                </div>
+            </div>
+        }
+        
+        
+    </div>
+
+    <div class="mini_cart_table">
+        <div class="cart_table_border">
+            
+            <div class="cart_total mt-10">
+                <span>total:</span>
+                <span class="price">$@Model.Sum(x => x.RowSumPrice).GetValueOrDefault(0).ToString("N")</span>
+            </div>
+        </div>
+    </div>
+    <script> $(".item_count").html(@Model.Sum(x=>x.Count)); </script>
+    
+}
+
+
+
+<div class="mini_cart_footer">
+    <style>
+        /* Butonlar için özel stil */
+        .cart_button a {
+            background-color: #1F509A; /* Arka plan rengi */
+            color: white; /* Metin rengi */
+            border: none; /* Kenarlık kaldırılır */
+            padding: 10px 20px; /* Buton boyutu */
+            border-radius: 5px; /* Yuvarlak kenarlar */
+            text-decoration: none; /* Alt çizgi kaldırılır */
+            display: inline-block; /* Buton hizalaması */
+            font-size: 14px; /* Yazı boyutu */
+            font-weight: bold; /* Yazı kalınlığı */
+            text-align: center; /* Metni ortalar */
+            width: 100%; /* Uzunluğu korur */
+        }
+
+            /* Hover efekti */
+            .cart_button a:hover {
+                background-color: #D4EBF8; /* Hover durumu arka plan rengi */
+                color: #0A3981; /* Hover durumu metin rengi */
+            }
+
+        /* Butonlar arasındaki boşluk */
+        .cart_button {
+            margin-bottom: 10px; /* Alt boşluk korunur */
+        }
+    </style>
+    <div class="cart_button">
+        <a href="/Cart"><i class="fa fa-shopping-cart"></i> View cart</a>
+    </div>
+    <div class="cart_button">
+        <a href="/cart/Checkout"><i class="fa fa-sign-in"></i> Checkout</a>
+    </div>
+</div>
+

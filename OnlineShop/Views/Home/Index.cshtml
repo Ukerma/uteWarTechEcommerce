@@ -1,0 +1,221 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var banners = ViewData["banners"] as List<OnlineShop.Models.Db.Banner>;
+    var newProducts = ViewData["newProducts"] as List<OnlineShop.Models.Db.Product>;
+}
+
+
+
+<!--slider area start-->
+<section class="slider_section mb-63">
+    <div class="slider_area slick_slider_activation" data-slick='{
+    "slidesToShow": 1,
+    "slidesToScroll": 1,
+    "arrows": true,
+    "dots": true,
+    "autoplay": false,
+    "speed": 300,
+    "infinite": true
+    }'>
+        @if (banners != null)
+        {
+            var sliders = banners.Where(x => x.Position == "Slider").OrderBy(x => x.Priority).ToList();
+            foreach (var item in sliders)
+            {
+                <div class="single_slider d-flex align-items-center" data-bgimg="/images/banners/@item.ImageName">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-7">
+                                <div class="slider_text">
+                                    <span>Lookbook</span>
+                                    <h1 class="title-color">@item.Title</h1>
+                                    <p class="subtitle-color">@item.SubTitle</p>
+                                    <a class="btn custom-btn" href="@item.Link">Explore Now</a>
+                                </div>
+                                <style>
+                                    /* Başlık ve Alt Başlık Stilleri */
+                                    .title-color {
+                                        color: white;
+                                    }
+
+                                    .slider_text p.subtitle-color {
+                                        color: whitesmoke;
+                                    }
+
+                                    /* Buton İçin Özel Stil */
+                                    .custom-btn {
+                                        margin-top: 5px;
+                                        background-color: #1F509A; /* Butonun arka plan rengi */
+                                        color: white; /* Buton metin rengi */
+                                        border: none; /* Buton kenarlığını kaldırır */
+                                        padding: 10px 20px; /* Buton boyutunu ayarlar */
+                                        border-radius: 5px; /* Yuvarlak kenarlar */
+                                        text-decoration: none; /* Alt çizgiyi kaldırır */
+                                    }
+
+                                        .custom-btn:hover {
+                                            margin-top: 5px;
+                                            background-color: #D4EBF8; /* Hover durumu için farklı bir renk */
+                                            color: #0A3981; /* Hover durumu için metin rengi */
+                                        }
+
+                                    /* Slider Kontrol Butonları */
+                                    .prev_arrow, .next_arrow {
+                                        background-color: #D4EBF8 !important; /* Arka plan rengi */
+                                        color: #1F509A !important; /* İkon rengi */
+                                        border: none; /* Kenarlık kaldırılır */
+                                        border-radius: 50%; /* Yuvarlak kontrol butonları */
+                                        width: 40px; /* Boyut */
+                                        height: 40px; /* Boyut */
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        z-index: 10; /* Görünürlük önceliği */
+                                    }
+
+                                        .prev_arrow:hover, .next_arrow:hover {
+                                            background-color: #1F509A !important; /* Hover durumu için arka plan rengi */
+                                            color: #D4EBF8 !important; /* Hover durumu için ikon rengi */
+                                        }
+
+                                    /* Slider Kontrollerin Konumu */
+                                    .prev_arrow {
+                                        left: -50px; /* Sol ok konumu */
+                                    }
+
+                                    .next_arrow {
+                                        right: -50px; /* Sağ ok konumu */
+                                    }
+
+                                    /* Dots için Stil */
+                                    .slick-dots li button {
+                                        background-color: #D4EBF8 !important; /* Normal nokta rengi */
+                                        border: none; /* Kenarlık kaldırılır */
+                                        width: 10px; /* Nokta boyutu */
+                                        height: 10px; /* Nokta boyutu */
+                                        border-radius: 50%; /* Yuvarlak noktalar */
+                                    }
+
+                                    .slick-dots li.slick-active button {
+                                        background-color: #0A3981 !important; /* Aktif nokta rengi */
+                                    }
+                                </style>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</section>
+
+<!--slider area end-->
+
+<!--shipping section start-->
+<section class="shipping_section mb-102">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="shipping_inner d-flex justify-content-between">
+                    <div class="single_shipping d-flex align-items-center">
+                        <div class="shipping_icon">
+                            <i class="icon-cursor icons"></i>
+                        </div>
+                        <div class="shipping_text">
+                            <h3>Worldwide Delivery</h3>
+                            <p>On All Large Deals</p>
+                        </div>
+                    </div>
+                    <div class="single_shipping d-flex align-items-center">
+                        <div class="shipping_icon">
+                            <i class="icon-reload icons"></i>
+                        </div>
+                        <div class="shipping_text">
+                            <h3>Mission Guarantee</h3>
+                            <p>No Time Wasted</p>
+                        </div>
+                    </div>
+                    <div class="single_shipping d-flex align-items-center">
+                        <div class="shipping_icon">
+                            <i class="icon-lock icons"></i>
+                        </div>
+                        <div class="shipping_text">
+                            <h3>Protected Deals</h3>
+                            <p>Encrypted Systems</p>
+                        </div>
+                    </div>
+                    <div class="single_shipping d-flex align-items-center">
+                        <div class="shipping_icon">
+                            <i class="icon-tag icons"></i>
+                        </div>
+                        <div class="shipping_text">
+                            <h3>Guaranteed Deals</h3>
+                            <p>Backed by Trust</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--shipping section end-->
+
+<!-- banner section start -->
+<section class="banner_section banner_style2 mb-109">
+    <div class="container-fluid">
+        <div class="row">
+            @if (banners != null)
+            {
+                var banner2_list = banners.Where(x => x.Position == "Banner2").OrderBy(x => x.Priority).ToList();
+                foreach (var item in banner2_list)
+                {
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <figure class="single_banner position-relative">
+                            <img src="/images/banners/@item.ImageName" alt="@item.ImageName">
+                            <div class="banner_text position-absolute">
+                                <h3 class="title-color">@item.Title</h3>
+                                <p class="subtitle-color">@item.SubTitle</p>
+                                @if (!string.IsNullOrEmpty(item.Link))
+                                {
+                                    <a class="btn custom-btn" href="@item.Link">Shop Now</a>
+                                }
+
+                                <style>
+                                    /* Başlık ve Alt Başlık Stilleri */
+                                    .title-color {
+                                        color: white;
+                                    }
+
+                                    .banner_text p.subtitle-color {
+                                        color: whitesmoke;
+                                    }
+
+                                    /* Buton İçin Özel Stil */
+                                    .custom-btn {
+                                        margin-top:5px;
+                                        background-color: #1F509A; /* Butonun arka plan rengi */
+                                        color: white; /* Buton metin rengi */
+                                        border: none; /* Buton kenarlığını kaldırır */
+                                        padding: 10px 20px; /* Buton boyutunu ayarlar */
+                                        border-radius: 5px; /* Yuvarlak kenarlar */
+                                        text-decoration: none; /* Alt çizgiyi kaldırır */
+                                    }
+
+                                        .custom-btn:hover {
+                                            margin-top: 5px;
+                                            background-color: #D4EBF8; /* Hover durumu için farklı bir renk */
+                                            color: #0A3981; /* Hover durumu için metin rengi */
+                                        }
+                                </style>
+                            </div>
+                        </figure>
+                    </div>
+
+                }
+            }
+            
+            
+        </div>
+    </div>
+</section>
+<!-- banner section end -->

@@ -1,0 +1,171 @@
+﻿@model List<OnlineShop.Models.ViewModels.ProductCartViewModel>
+
+@if (Model != null && Model.Any())
+{
+    <!--shopping cart area start -->
+    <div class="shopping_cart_area" style="margin-top:200px;">
+        <div class="container">
+            <form action="#">
+                <div class="cart_page_inner mb-60">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="cart_page_tabel">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>product </th>
+                                            <th>information</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr class="border-top" id="@item.Id">
+                                                <td>
+                                                    <div class="cart_product_thumb">
+                                                        <img src="/images/banners/@item.ImageName" alt="@item.Title">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="cart_product_text">
+                                                        <h4>@item.Title</h4>
+
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="cart_product_price">
+                                                        <span>$@item.Price.GetValueOrDefault().ToString("N")</span>
+                                                    </div>
+                                                </td>
+                                                <td class="product_quantity">
+                                                    <div class="cart_product_quantity">
+                                                        <input min="1" max="100" value="@item.Count" type="number"
+                                                               onchange="updateCart(@item.Id,$(this).val())">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="cart_product_price">
+                                                        <span>$@item.RowSumPrice.GetValueOrDefault().ToString("N")</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="cart_product_remove text-right">
+                                                        <a onclick="updateCart(@item.Id,0)"><i class="ion-android-close"></i></a>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="cart_page_button border-top d-flex justify-content-between">
+                                <style>
+                                    .custom-btn {
+                                        background-color: #1F509A !important; /* Butonun arka plan rengi */
+                                        color: white !important; /* Buton metin rengi */
+                                        border: none !important; /* Kenarlık kaldırılır */
+                                        padding: 12px 20px !important; /* Buton boyutunu ayarlar */
+                                        margin-top: 10px;
+                                        border-radius: 5px !important; /* Yuvarlak kenarlar */
+                                        text-decoration: none !important; /* Alt çizgiyi kaldırır */
+                                        display: flex !important; /* Flexbox kullanılarak hizalama */
+                                        align-items: center !important; /* Dikey olarak ortalama */
+                                        justify-content: center !important; /* Yatay olarak ortalama */
+                                        transition: all 0.3s ease !important; /* Geçiş efekti */
+                                        font-size: 14px !important; /* Yazı boyutu */
+                                    }
+
+                                        .custom-btn:hover {
+                                            background-color: #D4EBF8 !important; /* Hover arka plan rengi */
+                                            color: #0A3981 !important; /* Hover metin rengi */
+                                        }
+                                </style>
+                                <div class="shopping_cart_btn">
+                                    <a href="/cart/ClearCart" class="custom-btn">CLEAR SHOPPING CART</a>
+                                    <a href="/cart" class="custom-btn">UPDATE YOUR CART</a>
+                                </div>
+                                <div class="shopping_continue_btn">
+                                    <a href="/products" class="custom-btn">CONTINUE SHOPPING</a>
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <!--coupon code area start-->
+                <div class="cart_page_bottom custom-bg">
+                    <div class="row d-flex justify-content-end">
+                        <div class="col-lg-4 col-md-6 col-sm-8">
+                            <div class="grand_totall_area">
+                                <div class="grand_totall_inner border-bottom">
+                                    <div class="cart_grandtotal d-flex justify-content-between">
+                                        <p>Total</p>
+                                        <span>$@Model.Sum(x => x.RowSumPrice)?.ToString("N")</span>
+                                    </div>
+                                </div>
+                                <div class="proceed_checkout_btn">
+                                    <a class="custom-btn" href="/cart/Checkout">Proceed to Checkout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    /* Arka plan stili */
+                    .custom-bg {
+                        background-color: #D4EBF8; /* Açık mavi arka plan */
+                        padding: 20px; /* İçerik boşluğu */
+                        border-radius: 8px; /* Hafif yuvarlatılmış kenarlar */
+                    }
+
+                    /* Buton stili */
+                    .custom-btn {
+                        background-color: #1F509A; /* Butonun arka plan rengi */
+                        color: white; /* Buton metin rengi */
+                        border: none; /* Kenarlık kaldırılır */
+                        padding: 12px 20px; /* İç boşluk */
+                        border-radius: 5px; /* Yuvarlatılmış kenarlar */
+                        text-decoration: none; /* Alt çizgiyi kaldırır */
+                        display: block; /* Blok seviyesinde görünüm */
+                        text-align: center; /* Metni ortalar */
+                        font-size: 16px; /* Yazı boyutu */
+                        cursor: pointer; /* İşaretçi değişimi */
+                        transition: all 0.3s ease; /* Geçiş efekti */
+                    }
+
+                        /* Hover durumu */
+                        .custom-btn:hover {
+                            background-color: #D4EBF8; /* Hover sırasında açık mavi */
+                            color: #0A3981; /* Hover metin rengi */
+                        }
+                </style>
+
+                <!--coupon code area end-->
+            </form>
+        </div>
+    </div>
+    <!--shopping cart area end -->
+}
+else
+{
+    <div class="shopping_cart_area" style="margin-top:200px;">
+        <div class="container">
+            <div class="alert alert-danger" role="alert">
+                Cart is empty!
+            </div>
+        </div>
+    </div>
+
+
+}

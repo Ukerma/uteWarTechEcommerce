@@ -1,0 +1,151 @@
+﻿@model List<OnlineShop.Models.Db.Product>
+
+<!--shop  area start-->
+<div class="shop_section shop_reverse">
+    <div class="container">
+        <div class="row mt-5">
+
+            <div class="col-lg-9 col-md-12 mx-auto">
+                <!--shop wrapper start-->
+                <!--breadcrumbs area start-->
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="/">home</a></li>
+                        <li>shop</li>
+                    </ul>
+                </div>
+                <!--breadcrumbs area end-->
+
+                <!--shop toolbar start-->
+                <div class="shop_toolbar_wrapper d-flex justify-content-between align-items-center">
+                    <div class="page_amount">
+                        <p><span>@Model.Count</span> Products Found</p>
+                    </div>
+
+                    <div class="toolbar_btn_wrapper d-flex align-items-center">
+                        <div class="view_btn">
+                            <a class="view" href="#">VIEW</a>
+                        </div>
+                        <div class="shop_toolbar_btn">
+                            <ul class="d-flex align-items-center">
+                                <li><a href="#" class="active btn-grid-3" data-role="grid_3" data-tippy="3" data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top"><i class="ion-grid"></i></a></li>
+
+                                <li><a href="#" class="btn-list" data-role="grid_list" data-tippy="List" data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top"><i class="ion-navicon"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--shop toolbar end-->
+
+                <div class="row shop_wrapper">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-6 ">
+                            <div class="single_product">
+                                <div class="product_thumb">
+                                    <a href="/products/ProductDetails/@item.Id">
+                                        <img class="primary_img" src="/images/banners/@item.ImageName" alt="@item.ImageName">
+                                    </a>
+                                    @if (item.Discount != null && item.Price>0)
+                                    {
+                                        <div class="product_label">
+                                            @{
+                                                decimal? discount_percentage;
+                                                discount_percentage = (item.Discount.GetValueOrDefault(0) / item.Price.GetValueOrDefault(0)) * 100;
+                                            }
+                                            <span>-@discount_percentage.GetValueOrDefault(0).ToString("N")%</span>
+                                        </div>
+                                    }
+
+                                </div>
+                                <div class="product_content grid_content text-center">
+
+                                    <h4 class="product_name"><a href="/products/ProductDetails/@item.Id">@item.Title</a></h4>
+                                    <div class="price_box">
+                                        @if (item.Discount != null){
+                                            <span class="current_price">
+                                                @{
+                                                    decimal? discounted_price = item.Price.GetValueOrDefault(0) - item.Discount.GetValueOrDefault(0);
+                                                }
+                                                $@discounted_price.GetValueOrDefault(0).ToString("N")
+                                            </span>
+                                            <span class="old_price">$@item.Price.GetValueOrDefault(0).ToString("N")</span>
+                                        }
+                                        else{
+                                            <span class="current_price">$@item.Price.GetValueOrDefault(0).ToString("N")</span>
+                                        }
+                                        
+                                    </div>
+                                    <div class="add_to_cart">
+                                        <style>
+                                            .custom-btn {
+                                                background-color: #1F509A; /* Butonun arka plan rengi */
+                                                color: white; /* Buton metin rengi */
+                                                border: none; /* Buton kenarlığını kaldırır */
+                                                padding: 10px 20px; /* Buton boyutunu ayarlar */
+                                                border-radius: 5px; /* Yuvarlak kenarlar */
+                                                text-decoration: none; /* Alt çizgiyi kaldırır */
+                                            }
+
+                                                .custom-btn:hover {
+                                                    background-color: #D4EBF8; /* Hover durumu için farklı bir renk */
+                                                    color: #0A3981; /* Hover durumu için metin rengi */
+                                                }
+                                        </style>
+                                        <a class="btn custom-btn" onclick="updateCart(@item.Id,1)">Add To Cart</a>
+                                    </div>
+
+                                </div>
+                                <div class="product_list_content">
+                                    <h4 class="product_name"><a href="/products/ProductDetails/@item.Id">@item.Title</a></h4>
+                                    <p><a href="#">shows</a></p>
+                                    <div class="price_box">
+                                        @if (item.Discount != null)
+                                        {
+                                            <span class="current_price">
+                                                @{
+                                                    decimal? discounted_price = item.Price.GetValueOrDefault(0) - item.Discount.GetValueOrDefault(0);
+                                                }
+                                                $@discounted_price.GetValueOrDefault(0).ToString("N")
+                                            </span>
+                                            <span class="old_price">$@item.Price.GetValueOrDefault(0).ToString("N")</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="current_price">$@item.Price.GetValueOrDefault(0).ToString("N")</span>
+                                        }
+
+                                    </div>
+                                    <div class="product_desc">
+                                        <p>@item.Description</p>
+                                    </div>
+                                    <div class="add_to_cart">
+                                        <style>
+                                            .custom-btn {
+                                                background-color: #1F509A; /* Butonun arka plan rengi */
+                                                color: white; /* Buton metin rengi */
+                                                border: none; /* Buton kenarlığını kaldırır */
+                                                padding: 10px 20px; /* Buton boyutunu ayarlar */
+                                                border-radius: 5px; /* Yuvarlak kenarlar */
+                                                text-decoration: none; /* Alt çizgiyi kaldırır */
+                                            }
+
+                                                .custom-btn:hover {
+                                                    background-color: #D4EBF8; /* Hover durumu için farklı bir renk */
+                                                    color: #0A3981; /* Hover durumu için metin rengi */
+                                                }
+                                        </style>
+                                        <a class="btn custom-btn" onclick="updateCart(@item.Id,1)" data-tippy="Add To Cart" data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top">Add To Cart</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--shop  area end-->
