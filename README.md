@@ -29,30 +29,6 @@
    </li>
 </ul>
 
-<h2>📋 Project Structure</h2>
-<ul>
-   <li> <strong>Controllers:</strong> Responsible for handling user requests and executing business logic (e.g., <code>BannersController.cs</code>, <code>CommentsController.cs</code>).</li>
-   <li> <strong>Models:</strong> Define the database structure and data validation rules (e.g., <code>Banner.cs</code>, <code>Comment.cs</code>).</li>
-   <li> <strong>Views:</strong> Provide the user interface using Razor syntax (e.g., <code>Products/Index.cshtml</code>).</li>
-   <li> <strong>Program.cs:</strong> Configures middleware, routing, and authentication mechanisms.</li>
-</ul>
-
-<h2>📂 File Structure</h2>
-<pre>
-UTEWarTech/
-├── Controllers/
-│   ├── BannersController.cs
-│   ├── CommentsController.cs
-├── Models/
-│   ├── Db/
-│   │   ├── Banner.cs
-│   │   ├── Comment.cs
-├── Views/
-│   ├── Products/
-│   │   ├── Index.cshtml
-├── Program.cs
-</pre>
-
 <h2>🚀 How to Run</h2>
 <ol>
    <li> Clone this repository: <code>git clone https://github.com/Ukerma/uteWarTechEcommerce.git</code></li>
