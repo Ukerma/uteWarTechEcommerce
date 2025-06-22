@@ -157,13 +157,13 @@ namespace OnlineShop.Controllers
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
-            mail.From = new MailAddress("utewartech@gmail.com");
+            mail.From = new MailAddress("******@gmail.com");
             mail.To.Add(foundUser.Email);
             mail.Subject = "Recovery code";
             mail.Body = "Your recovery code:" + foundUser.RecoveryCode;
 
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("wartech.ute@gmail.com", "pgye noqg tnnt yqzg");
+            SmtpServer.Credentials = new System.Net.NetworkCredential("******@gmail.com", "**** **** **** ****");
             SmtpServer.EnableSsl = true;
 
             SmtpServer.Send(mail);
